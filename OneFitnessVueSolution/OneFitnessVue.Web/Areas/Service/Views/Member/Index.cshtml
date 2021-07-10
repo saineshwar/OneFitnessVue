@@ -1,0 +1,212 @@
+﻿@using OneFitnessVue.Web.Helpers
+
+@{ ViewBag.PageName = "Member"; }
+
+@await Html.PartialAsync("~/Views/Shared/_DatatablesCss.cshtml")
+
+
+<div class="col-md-12">
+    <div class="card card-default">
+        <div class="card-header">
+            <h3 class="card-title">All</h3>
+        </div>
+        <div class="card-body">
+            <table id="DataTableGrid" class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>MemberId</th>
+                        <th>MemberNo</th>
+                        <th>Full Name</th>
+                        <th>Joining Date</th>
+                        <th>Status</th>
+                        <th>View</th>
+                       
+                       
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+@await Html.PartialAsync("~/Views/Shared/_DatatablesScripts.cshtml")
+@Html.Hidden("item-to-delete", "", new { @id = "item-to-delete" })
+
+@section scripts{
+    
+    <script src="~/plugins/moment/moment.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#DataTableGrid').DataTable({
+                order: [[0, 'desc']],
+                "processing": true,
+                "serverSide": true,
+                "filter": true,
+                "ajax": {
+                    "url": "/Service/Member/ShowAllMemberRegistration",
+                    "type": "POST",
+                    "datatype": "json"
+                },
+                "columnDefs": [
+                    {
+                        "targets": [0],
+                        "visible": false,
+                        "searchable": false
+                    },
+                    {
+                        "targets": [1],
+                        "orderable": false,
+                        "searchable": false
+                    },
+                    {
+                        "targets": [2],
+                        "orderable": false,
+                        "searchable": false
+                    },
+                    {
+                        "targets": [3],
+                        "orderable": false,
+                        "searchable": false
+                    },
+                    {
+                        "targets": [4],
+                        "orderable": false,
+                        "searchable": false
+                    },
+                    {
+                        "targets": [5],
+                        "orderable": false,
+                        "searchable": false
+                    },
+                    {
+                        "targets": [6],
+                        "orderable": false,
+                        "searchable": false
+                    },
+                    {
+                        "targets": [7],
+                        "orderable": false,
+                        "searchable": false
+                    }
+                ],
+                "columns": [
+                    { "data": "MemberId", "name": "MemberId", "autoWidth": true },
+                    { "data": "MemberNo", "name": "MemberNo", "autoWidth": true },
+                    { "data": "FullName", "name": "FullName", "autoWidth": true },
+                    
+                    {
+                        "render": function (data, type, full, meta) {
+                            return moment(full.JoiningDate).format("DD/MM/YYYY");
+                        }
+                    },
+                    { "data": "Status", "name": "Status", "autoWidth": true },
+                    {
+                        "render": function(data, type, full, meta) { return '<a class="btn btn-info" href="/Service/Member/MemberProfile?MemberId=' + full.MemberId + '"> <i class="fas fa-user-alt"></i> Profile</a>'; }
+                    },
+                 
+                    {
+                        "render": function(data, type, full, meta) {
+                            return '<a class="btn btn-primary" href="/Service/Member/EditApplication?MemberId=' + full.MemberId + '"> <i class="fas fa-edit"></i> Edit</a>';
+                        }
+                    },
+                    {
+                        "render": function(data, type, full, meta) {
+                            if (full.Status == "Active") {
+                                return ' <button type="button" class="btn btn-success" onclick="InActiveMember(' + full.MemberId + ');">  Active </button>';
+                            } else
+                            {
+                                return ' <button type="button" class="btn btn-danger" onclick="ActiveMember(' + full.MemberId + ');">  InActive </button>';
+                            }
+
+                        }
+                    }
+                ]
+            });
+
+
+        });
+
+        function InActiveMember(memberId) {
+            $.confirm({
+                title: 'Message!',
+                content: 'Do you want to Deactivate Member ?',
+                buttons: {
+                    confirm: function() {
+                        $.ajax({
+                            url: "/Service/Member/InActiveMember",
+                            type: "POST",
+                            data: { MemberId: memberId },
+                            success: function(data, textStatus, xhr) {
+                                if (data.Result == "success") {
+                                    location.reload();
+                                }
+                                if (data.Result == "failed") {
+                                    $.alert('Something Went Wrong');
+                                }
+                            },
+                            error: function(xhr, status, err) {
+                                if (xhr.status == 401) {
+                                    alert('Error');
+                                    window.location.href = "/Portal/Logout";
+                                }
+                                if (xhr.status == 500) {
+                                    alert('Error');
+                                    window.location.href = "/Portal/Logout";
+                                }
+                            }
+                        });
+                    },
+                    cancel: function() {
+                        $.alert('Canceled!');
+                    }
+                }
+            });
+        }
+
+        function ActiveMember(memberId) {
+            $.confirm({
+                title: 'Message!',
+                content: 'Do you want to Deactivate Member ?',
+                buttons: {
+                    confirm: function() {
+                        $.ajax({
+                            url: "/Service/Member/ActiveMember",
+                            type: "POST",
+                            data: { MemberId: memberId },
+                            success: function(data, textStatus, xhr) {
+                                if (data.Result == "success") {
+                                    location.reload();
+                                }
+                                if (data.Result == "failed") {
+                                    $.alert('Something Went Wrong');
+                                }
+                            },
+                            error: function(xhr, status, err) {
+                                if (xhr.status == 401) {
+                                    alert('Error');
+                                    window.location.href = "/Portal/Logout";
+                                }
+                                if (xhr.status == 500) {
+                                    alert('Error');
+                                    window.location.href = "/Portal/Logout";
+                                }
+                            }
+                        });
+                    },
+                    cancel: function() {
+                        $.alert('Canceled!');
+                    }
+                }
+            });
+        }
+    </script>
+
+
+}
+

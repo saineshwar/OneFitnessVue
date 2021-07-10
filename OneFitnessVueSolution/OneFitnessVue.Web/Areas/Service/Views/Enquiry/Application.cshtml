@@ -1,0 +1,178 @@
+﻿@model OneFitnessVue.ViewModel.Enquiry.EnquiryViewModel
+@{
+    ViewBag.PageName = "Enquiry";
+}
+
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Add</h3>
+        </div>
+
+        <form asp-controller="Enquiry" asp-antiforgery="true" id="frmEnquiry" name="frmEnquiry" asp-action="Application" method="post">
+            <div class="card-body register-card-body">
+                <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <label class="mandatory" asp-for="FirstName"></label>
+                        <input asp-for="FirstName" placeholder="Enter FirstName" maxlength="100" class="form-control" />
+                        <span class="text-danger" asp-validation-for="FirstName"></span>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="mandatory" asp-for="MiddleName"></label>
+                        <input asp-for="MiddleName" placeholder="Enter MiddleName" maxlength="100" class="form-control" />
+                        <span class="text-danger" asp-validation-for="MiddleName"></span>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="mandatory" asp-for="LastName"></label>
+                        <input asp-for="LastName" placeholder="Enter LastName" maxlength="100" class="form-control" />
+                        <span class="text-danger" asp-validation-for="LastName"></span>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="mandatory" asp-for="GenderId"></label>
+                        <select asp-for="GenderId" class="form-control"
+                                asp-items="@(new SelectList(Model.ListofGender, "Value", "Text"))">
+                        </select>
+                        <span class="text-danger" asp-validation-for="GenderId"></span>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <label class="mandatory" asp-for="MobileNo"></label>
+                        <input asp-for="MobileNo" onkeypress="return onlyNumbers(event);" placeholder="MobileNo" maxlength="10" class="form-control" />
+                        <span class="text-danger" asp-validation-for="MobileNo"></span>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="mandatory" asp-for="EmailId"></label>
+                        <input asp-for="EmailId" placeholder="EmailId" maxlength="60" class="form-control" />
+                        <span class="text-danger" asp-validation-for="EmailId"></span>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="mandatory" asp-for="WorkoutId"></label>
+                        <select asp-for="WorkoutId" class="form-control"
+                                asp-items="@(new SelectList(Model.ListofWorkout, "Value", "Text"))">
+                        </select>
+                        <span class="text-danger" asp-validation-for="WorkoutId"></span>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <label class="mandatory" asp-for="EnquiryDetails"></label>
+                        <textarea class="form-control" maxlength="100" asp-for="EnquiryDetails"></textarea>
+                        <span class="text-danger" asp-validation-for="EnquiryDetails"></span>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="mandatory" asp-for="ReasonId"></label>
+                        <select asp-for="ReasonId" class="form-control"
+                                asp-items="@(new SelectList(Model.ListofReason, "Value", "Text"))">
+                        </select>
+                        <span class="text-danger" asp-validation-for="ReasonId"></span>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="mandatory" asp-for="Status"></label> <br />
+
+                        <input asp-for="Status" type="checkbox" />
+                        <span class="text-danger" asp-validation-for="Status"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <button type="button" id="btnsubmit" class="btn btn-success">Submit</button>
+                <a asp-area="Service" class="btn btn-danger" asp-controller="Enquiry" asp-action="Application">Clear</a>
+                <a asp-area="Service" class="btn btn-primary" asp-controller="Enquiry" asp-action="Index">List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts
+{
+
+    <link href="~/plugins/jquery-ui/jquery-ui.css" rel="stylesheet" />
+    <script src="~/plugins/jquery-ui/jquery-ui.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() 
+            {
+
+            $("#MobileNo").blur(function() {
+                if ($("#MobileNo").val() != '' && $("#MobileNo").val().length == "10") {
+                    $.ajax({
+                        type: "POST",
+                        url: "/Service/Member/CheckMobileNo",
+                        data: {
+                            MobileNo: $("#MobileNo").val()
+                        },
+                        dataType: "json",
+                        success: function(data, textStatus, xhr) {
+                            if (data.result == "Exists") {
+                                $.alert('MobileNo Already Exists!');
+                                $("#MobileNo").val('');
+                            }
+                        },
+                        error: function(xhr, status, err) {
+                            if (xhr.status == 401) {
+                                alert('Error');
+                                window.location.href = "/Portal/Logout";
+                            }
+
+                            if (xhr.status == 500) {
+                                alert('Error');
+                                window.location.href = "/Portal/Logout";
+                            }
+                        }
+                    });
+                }
+            });
+
+            $("#EmailId").blur(function() {
+                if ($("#EmailId").val() != '') {
+                    $.ajax({
+                        type: "POST",
+                        url: "/Service/Member/CheckEmailId",
+                        data: {
+                            EmailId: $("#EmailId").val()
+                        },
+                        dataType: "json",
+                        success: function(data, textStatus, xhr) {
+                            if (data.result == "Exists") {
+                                $.alert('EmailId Already Exists!');
+                                $("#EmailId").val('');
+                            }
+                        },
+                        error: function(xhr, status, err) {
+                            if (xhr.status == 401) {
+                                alert('Error');
+                                window.location.href = "/Portal/Logout";
+                            }
+
+                            if (xhr.status == 500) {
+                                alert('Error');
+                                window.location.href = "/Portal/Logout";
+                            }
+                        }
+                    });
+                }
+            });
+
+            $( "#btnsubmit" ).click(function() {
+
+                $.confirm({
+                    title: 'Confirmation Message',
+                    content: "Are you sure you want to submit?",
+                    type: 'green',
+                    typeAnimated: false,
+                    buttons:
+                    {
+                        Ok: function ()
+                        {
+                            $("#frmEnquiry").submit();
+                        }
+                    }
+                });
+            });
+        });
+
+    </script>
+}
+

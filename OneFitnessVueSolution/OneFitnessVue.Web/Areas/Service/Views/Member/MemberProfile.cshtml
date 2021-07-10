@@ -1,0 +1,244 @@
+﻿@model OneFitnessVue.ViewModel.MemberRegistration.MemberMainViewModel
+@using OneFitnessVue.Web.Helpers
+@{
+    ViewBag.PageName = "Member Profile";
+}
+
+
+<div class="row">
+<div class="col-md-3">
+
+    <!-- Profile Image -->
+    <div class="card card-primary card-outline">
+        <div class="card-body box-profile">
+            <div class="text-center">
+                @if (ViewBag.Base64Photo != null)
+                {
+                    <img class="profile-user-img img-fluid" src="@ViewBag.Base64Photo" alt="User profile picture">
+                }
+                else
+                {
+                    <img class="profile-user-img img-fluid" src="~/img/user.png" alt="User profile picture">
+                }
+
+            </div>
+
+            <h3 class="profile-username text-center">@Model.MemberDetails.FullName</h3>
+
+
+            <ul class="list-group list-group-unbordered mb-3">
+
+                <li class="list-group-item">
+                    <b>MemberNo</b> <a class="float-right">@Model.MemberDetails.MemberNo</a>
+                </li>
+                <li class="list-group-item">
+                    <b>Joining Date</b> <a class="float-right">@Model.MemberDetails.JoiningDate</a>
+                </li>
+                <li class="list-group-item">
+                    <b>Date of Birth</b> <a class="float-right">@Model.MemberDetails.DOB</a>
+                </li>
+                <li class="list-group-item">
+                    <b>Emergency Contact Name</b> <br /> <a class="float-left">@Model.MemberDetails.EmergencyContactName</a>
+                </li>
+                <li class="list-group-item">
+                    <b>Emergency Contact No</b> <br /> <a class="float-left">@Model.MemberDetails.EmergencyContactNo</a>
+                </li>
+            </ul>
+
+
+        </div>
+        <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+
+</div>
+<div class="col-md-9">
+    <!-- About Me Box -->
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title">Profile</h3>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+            <strong><i class="fas fa-address-book mr-1"></i> Address</strong>
+
+            <p class="text-muted">
+                @Model.MemberDetails.Address
+            </p>
+
+            <hr>
+
+            <strong><i class="fas fa-envelope-open-text mr-1"></i> EmailId</strong>
+
+            <p class="text-muted">  @if (!string.IsNullOrEmpty(Model.MemberDetails.EmailId))
+            {
+                @Model.MemberDetails.EmailId
+                                    }
+                                    else
+                                    {
+                                        <p>-</p>
+                                    }
+            
+                </p>
+
+            <hr>
+
+            <strong><i class="fas fa-mobile-alt mr-1"></i> MobileNo</strong>
+
+            <p class="text-muted">   @Model.MemberDetails.MobileNo</p>
+
+            <hr>
+
+            <strong><i class="fas fa-file-invoice"></i> Payments</strong>
+
+            <p class="text-muted">
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+
+                            <!-- /.card-header -->
+                            <div class="card-body table-responsive p-0">
+                                <table class="table table-bordered text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>Type</th>
+                                            <th>Print</th>
+                                            <th>WorkOut</th>
+                                            <th>MembershipType</th>
+                                            <th>Installment</th>
+                                            <th>Payment From</th>
+                                            <th>Payment To</th>
+                                            <th>Next Renwal Date</th>
+                                            <th>Create Date</th>
+                                            <th>Payment Type</th>
+                                            <th>Tax</th>
+                                            <th>Tax Percentage</th>
+                                            <th>Amount</th>
+                                            <th>Total Amount</th>
+
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        @foreach (var payment in Model.ListofPayments)
+                                        {
+                                            <tr>
+                                                <td>
+
+                                                    @if (payment.ApplicationType == "NW")
+                                                    {
+                                                        <button type="button" class="btn btn-success">New</button>
+                                                    }
+                                                    else if (payment.ApplicationType == "RE")
+                                                    {
+                                                        <button type="button" class="btn btn-warning">Renewed</button>
+                                                    }
+                                                    else if (payment.ApplicationType == "RF")
+                                                    {
+                                                        <button type="button" class="btn btn-danger">Refund</button>
+                                                    }
+                                                </td>
+                                                <td>
+                                                    @if (payment.ApplicationType == "RF")
+                                                    {
+
+                                                    }
+                                                    else
+                                                    {
+                                                        <a class="btn btn-info" target="_blank" href="/Service/Receipt/Generate?memberId=@payment.MemberID&PaymentID=@payment.PaymentID"><i class="fas fa-print"></i> Print </a>
+                                                    }
+                                                </td>
+
+                                                <td>@payment.WorkOut</td>
+                                                <td>@payment.MembershipType</td>
+                                                <td>@payment.Installment</td>
+                                                <td>@payment.PaymentFromdt</td>
+                                                <td>@payment.PaymentTodt</td>
+                                                <td>@payment.NextRenewalDate</td>
+                                                <td>@payment.CreateDate</td>
+                                                <td>@payment.PaymentType</td>
+                                                <td>@payment.Tax</td>
+                                                <td>@payment.TaxPercentage</td>
+                                                <td>@payment.Amount</td>
+                                                <td>@payment.TotalAmount</td>
+
+
+
+                                            </tr>
+                                        }
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                </div>
+            </p>
+
+            @if (Model.ListofDocuments != null)
+            {
+                if (Model.ListofDocuments.Any())
+                {
+                    <hr>
+                    <strong><i class="far fa-file-alt mr-1"></i> Documents</strong>
+
+                    <p class="text-muted">
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+
+                                    <!-- /.card-header -->
+                                    <div class="card-body table-responsive p-0">
+                                        <table class="table table-bordered text-nowrap">
+                                            <thead>
+                                                <tr>
+                                                    <th>Document</th>
+                                                    <th>Download</th>
+
+
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                                @foreach (var document in Model.ListofDocuments)
+                                                {
+                                                    <tr>
+                                                        <td>@document.DocumentName</td>
+                                                        <td>
+                                                            <a class="btn btn-warning" onclick="TrackClick('/Service/Member/Download?documentId=@document.ADId')"><i class="fas fa-download"></i> Download </a>
+                                                        </td>
+
+                                                    </tr>
+                                                }
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <!-- /.card-body -->
+                                </div>
+                                <!-- /.card -->
+                            </div>
+                        </div>
+                    </p>
+                }
+            }
+
+
+        </div>
+        <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+</div>
+</div>
+
+<script type="text/javascript">
+    function TrackClick(link) {
+        return window.location.href = link;
+    }
+</script>

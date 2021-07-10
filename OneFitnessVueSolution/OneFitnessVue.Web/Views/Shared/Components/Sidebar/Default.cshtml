@@ -1,0 +1,47 @@
+﻿
+@using Microsoft.AspNetCore.Http
+@using OneFitnessVue.Web.Views.Shared.Components.SideMenu
+
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+
+
+    @if (!string.IsNullOrEmpty(Context.Session.GetString("Portal.RoleId")))
+    {
+        if (Context.Session.GetString("Portal.String.RoleId") == "2")
+        {
+
+            <a asp-area="Service" class="brand-link" asp-controller="Dashboard" asp-action="Dashboard">
+                <img src="~/img/o.png" alt="OneFitnessVue Logo" class="brand-image img-circle elevation-3"
+                     style="opacity: .8">
+                <span class="brand-text font-weight-light">OneFitnessVue</span>
+            </a>
+        }
+   
+
+
+    }
+
+
+    <div class="sidebar">
+        @if (!string.IsNullOrEmpty(Context.Session.GetString("Portal.UserName")))
+        {
+<div class="user-panel mt-3 pb-3 mb-3 d-flex">
+    <div class="image">
+        <img id="myprofile_pic" src="~/img/user.png" class="img-circle elevation-2" alt="User Image">
+    </div>
+    <div class="info">
+        <a href="javascript:void(0);" class="d-block">Hi, @Context.Session.GetString("Portal.UserName") </a>
+    </div>
+</div> }
+else
+{
+<div class="user-panel mt-3 pb-3 mb-3 d-flex">
+    <div class="info">
+        <a href="javascript:void(0);" class="d-block">Hi, Visitor</a>
+    </div>
+</div>}
+
+
+        @(await Component.InvokeAsync<SideMenuViewComponent>())
+    </div>
+</aside>

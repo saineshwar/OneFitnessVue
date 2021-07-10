@@ -1,0 +1,162 @@
+﻿
+@{ ViewBag.PageName = "Enquiry"; }
+
+@await Html.PartialAsync("~/Views/Shared/_DatatablesCss.cshtml")
+
+
+<div class="col-md-12">
+    <div class="card card-default">
+        <div class="card-header">
+            <h3 class="card-title">All</h3>
+        </div>
+        <div class="card-body">
+            <table id="DataTableGrid" class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>EnquiryId</th>
+                        <th>Full Name</th>
+                        <th>MobileNo</th>
+                        <th>EmailId</th>
+                        <th>Gender</th>
+                        <th>Workout</th>
+                        <th>Status</th>
+                        <th>Reason</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+@await Html.PartialAsync("~/Views/Shared/_DatatablesScripts.cshtml")
+@Html.Hidden("item-to-delete", "", new { @id = "item-to-delete" })
+
+@section scripts{
+    <script>$(document).ready(function() {
+            $('#DataTableGrid').DataTable({
+                order: [[0, 'desc']],
+                "processing": true,
+                "serverSide": true,
+                "filter": true,
+                "ajax": {
+                    "url": "/Service/Enquiry/ShowAllEnquiry",
+                    "type": "POST",
+                    "datatype": "json"
+                },
+                "columnDefs": [
+                    {
+                        "targets": [0],
+                        "visible": false,
+                        "searchable": false
+                    },
+                    {
+                        "targets": [1],
+                        "orderable": false,
+                        "searchable": false
+                    },
+                    {
+                        "targets": [2],
+                        "orderable": false,
+                        "searchable": false
+                    },
+                    {
+                        "targets": [3],
+                        "orderable": false,
+                        "searchable": false
+                    },
+                    {
+                        "targets": [4],
+                        "orderable": false,
+                        "searchable": false
+                    },
+                    {
+                        "targets": [5],
+                        "orderable": false,
+                        "searchable": false
+                    },
+                    {
+                        "targets": [6],
+                        "orderable": false,
+                        "searchable": false
+                    },
+                    {
+                        "targets": [7],
+                        "orderable": false,
+                        "searchable": false
+                    },
+                    {
+                        "targets": [8],
+                        "orderable": false,
+                        "searchable": false
+                    }
+                   
+                ],
+                "columns": [
+                    { "data": "EnquiryId", "name": "EnquiryId", "autoWidth": true },
+                    { "data": "FullName", "name": "FullName", "autoWidth": true },
+                    { "data": "MobileNo", "name": "MobileNo", "autoWidth": true },
+                    { "data": "EmailId", "name": "EmailId", "autoWidth": true },
+                    { "data": "Gender", "name": "Gender", "autoWidth": true },
+                    { "data": "Workout", "name": "Workout", "autoWidth": true },
+                    { "data": "Status", "name": "Status", "autoWidth": true },
+                    { "data": "Reason", "name": "Reason", "autoWidth": true },
+                    {
+                        "render": function (data, type, full, meta) {
+                            return ' <button type="button" class="btn btn-danger" onclick="Delete(' + full.EnquiryId + ');"><i class="fas fa-trash"></i> Delete </button>';
+                        }
+                    }
+                    
+                ]
+            });
+
+
+        });
+
+        function Delete(enquiryId) {
+            $.confirm({
+                title: 'Delete!',
+                content: 'Do you want to Delete Enquiry!',
+                buttons: {
+                    confirm: function () {
+                        $.ajax({
+                            url: "/Service/Enquiry/Delete",
+                            type: "POST",
+                            data: { EnquiryId: enquiryId },
+                            success: function (data, textStatus, xhr) {
+                                if (data.Result == "success") {
+                                    location.reload();
+                                }
+                                if (data.Result == "failed") {
+                                    $.alert('Something Went Wrong');
+                                }
+                            },
+                            error: function (xhr, status, err) {
+                                if (xhr.status == 401) {
+                                    alert('Error');
+                                    window.location.href = "/Portal/Logout";
+                                }
+                                if (xhr.status == 500) {
+                                    alert('Error');
+                                    window.location.href = "/Portal/Logout";
+                                }
+                            }
+                        });
+                    },
+                    cancel: function () {
+                        $.alert('Canceled!');
+                    }
+                }
+            });
+        }
+
+
+    </script>
+
+
+}
+

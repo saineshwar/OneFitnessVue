@@ -1,0 +1,433 @@
+﻿@model OneFitnessVue.ViewModel.MemberRegistration.MemberRegistrationViewModel
+@{
+    ViewBag.PageName = "Member Registration";
+}
+
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Add</h3>
+        </div>
+
+        <form asp-controller="Member" autocomplete="off" asp-antiforgery="true" id="frmRegistration" name="frmRegistration" asp-action="Application" method="post">
+            <div class="card-body register-card-body">
+                <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <label class="mandatory" asp-for="MemberNo"></label>
+                        <input style="font-family: fangsong;" asp-for="MemberNo" readonly="readonly" class="form-control" />
+                        <span class="text-danger" asp-validation-for="MemberNo"></span>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="mandatory" asp-for="FirstName"></label>
+                        <input asp-for="FirstName" placeholder="Enter FirstName"  maxlength="100" class="form-control" />
+                        <span class="text-danger" asp-validation-for="FirstName"></span>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="mandatory" asp-for="MiddleName"></label>
+                        <input asp-for="MiddleName" placeholder="Enter MiddleName" maxlength="100" class="form-control" />
+                        <span class="text-danger" asp-validation-for="MiddleName"></span>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="mandatory" asp-for="LastName"></label>
+                        <input asp-for="LastName" placeholder="Enter LastName" maxlength="100" class="form-control" />
+                        <span class="text-danger" asp-validation-for="LastName"></span>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <label class="mandatory" asp-for="DOB"></label>
+                        <input asp-for="DOB" onkeypress="return false;" placeholder="Date of Birth" class="form-control" />
+                        <span class="text-danger" asp-validation-for="DOB"></span>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="mandatory" asp-for="Age"></label>
+                        <input asp-for="Age" placeholder="Age" readonly="readonly" maxlength="2" class="form-control" />
+                        <span class="text-danger" asp-validation-for="Age"></span>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="mandatory" asp-for="MobileNo"></label>
+                        <input asp-for="MobileNo" onkeypress="return onlyNumbers(event);" placeholder="MobileNo" maxlength="10" class="form-control" />
+                        <span class="text-danger" asp-validation-for="MobileNo"></span>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label asp-for="EmailId"></label>
+                        <input asp-for="EmailId" placeholder="EmailId" maxlength="60" class="form-control" />
+                        <span class="text-danger" asp-validation-for="EmailId"></span>
+                    </div>
+                </div>
+                <div class="form-row">
+
+                    <div class="form-group col-md-3">
+                        <label class="mandatory" asp-for="GenderId"></label>
+                        <select asp-for="GenderId" class="form-control"
+                                asp-items="@(new SelectList(Model.ListofGender, "Value", "Text"))">
+                        </select>
+                        <span class="text-danger" asp-validation-for="GenderId"></span>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="mandatory" asp-for="WorkoutId"></label>
+                        <select asp-for="WorkoutId" class="form-control"
+                                asp-items="@(new SelectList(Model.ListofWorkout, "Value", "Text"))">
+                        </select>
+                        <span class="text-danger" asp-validation-for="WorkoutId"></span>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="mandatory" asp-for="InstallmentId"></label>
+                        <select asp-for="InstallmentId" class="form-control"
+                                asp-items="@(new SelectList(Model.ListofInstallment, "Value", "Text"))">
+                        </select>
+                        <span class="text-danger" asp-validation-for="InstallmentId"></span>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="mandatory" asp-for="MembershipTypeId"></label>
+                        <select asp-for="MembershipTypeId" class="form-control"
+                                asp-items="@(new SelectList(Model.ListofMembershipType, "Value", "Text"))">
+                        </select>
+                        <span class="text-danger" asp-validation-for="MembershipTypeId"></span>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <label class="mandatory" asp-for="Address"></label>
+                        <textarea class="form-control"  maxlength="90" asp-for="Address"></textarea>
+                        <span class="text-danger" asp-validation-for="Address"></span>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="mandatory" asp-for="JoiningDate"></label>
+                        <input asp-for="JoiningDate" onkeypress="return false;" placeholder="Joining Date" class="form-control" />
+                        <span class="text-danger" asp-validation-for="JoiningDate"></span>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="mandatory" asp-for="TaxId"></label>
+                        <select asp-for="TaxId" class="form-control"
+                                asp-items="@(new SelectList(Model.ListofTaxTypes, "Value", "Text"))">
+                        </select>
+                        <span class="text-danger" asp-validation-for="TaxId"></span>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="mandatory" asp-for="PaymentTypeId"></label>
+                        <select asp-for="PaymentTypeId" class="form-control"
+                                asp-items="@(new SelectList(Model.ListofPaymentTypes, "Value", "Text"))">
+                        </select>
+                        <span class="text-danger" asp-validation-for="PaymentTypeId"></span>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <label class="mandatory" asp-for="Amount"></label>
+                        <input asp-for="Amount" placeholder="Amount" readonly="readonly" class="form-control" />
+                        <span class="text-danger" asp-validation-for="Amount"></span>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="mandatory" asp-for="Taxpercentage"></label>
+                        <input asp-for="Taxpercentage" readonly="readonly" placeholder="Tax Percentage" class="form-control" />
+                        <span class="text-danger" asp-validation-for="Taxpercentage"></span>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="mandatory" asp-for="Total"></label>
+                        <input asp-for="Total" readonly="readonly" placeholder="Total" class="form-control" />
+                        <span class="text-danger" asp-validation-for="Total"></span>
+                    </div>
+                    
+
+                </div>
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                    <label class="mandatory" asp-for="EmergencyContactName"></label>
+                    <input asp-for="EmergencyContactName" placeholder="Emergency Contact Name" maxlength="100" class="form-control" />
+                    <span class="text-danger" asp-validation-for="EmergencyContactName"></span>
+                </div>
+                <div class="form-group col-md-3">
+                    <label class="mandatory" asp-for="EmergencyContactNo"></label>
+                    <input asp-for="EmergencyContactNo" onkeypress="return onlyNumbers(event);" maxlength="15" placeholder="Emergency Contact No" class="form-control" />
+                    <span class="text-danger" asp-validation-for="EmergencyContactNo"></span>
+                </div>
+                <div class="form-group col-md-3">
+                    <label  class="mandatory" asp-for="Status"></label> <br />
+                    <input asp-for="Status" type="checkbox" />
+                    <span class="text-danger" asp-validation-for="Status"></span>
+                </div>
+            </div>
+            </div>
+            <div class="card-footer">
+                <button type="button" id="btnsubmit" class="btn btn-success">Submit</button>
+                <a asp-area="Service" class="btn btn-danger" asp-controller="Member" asp-action="Application">Clear</a>
+                <a asp-area="Service" class="btn btn-primary" asp-controller="Member" asp-action="Index">List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts
+{
+
+    <link href="~/plugins/jquery-ui/jquery-ui.css" rel="stylesheet"/>
+    <script src="~/plugins/jquery-ui/jquery-ui.js"></script>
+
+    <script type="text/javascript">
+
+
+        $('#DOB').datepicker({
+            changeMonth: true,
+            changeYear: true,
+            changeday: true,
+            dateFormat: "yy-mm-dd",
+            yearRange: "1980:2005",
+            onSelect: function(selectedDate, ev) {
+                CalculateAge(selectedDate);
+            }
+        });
+
+        $('#JoiningDate').datepicker({
+            changeMonth: true,
+            changeYear: true,
+            changeday: true,
+            dateFormat: "yy-mm-dd",
+            yearRange: "2021:2025",
+            minDate: new Date(),
+            startDate: new Date()
+        });
+
+        function CalculateAge(selectedDate) {
+            var x = selectedDate.split('-');
+            var curYear = new Date().getUTCFullYear();
+            var age = curYear - x[0];
+            $('#Age').val(age);
+        }
+
+
+        $(document).ready(function() {
+
+
+            $("#TaxId").attr('disabled', true);
+
+            $("#MembershipTypeId").change(function() {
+                $("#TaxId").attr('disabled', false);
+            });
+
+            $("#WorkoutId").change(function() {
+
+                $("#InstallmentId").val("");
+                $("#MembershipTypeId").empty();
+                $('#MembershipTypeId').append($('<option>').val("").text("---Select---"));
+
+                $('#TaxId').val("");
+                $("#TaxId").attr('disabled', true);
+            });
+
+
+            $("#MembershipTypeId").change(function() {
+
+                $("#TaxId").attr('disabled', false);
+            });
+
+
+            $("#InstallmentId").change(function() {
+
+                if ($("#InstallmentId").val() == '') {
+                    $.alert("Select Installment");
+                } else if ($("#WorkoutId").val() == '') {
+                    $.alert("Select WorkOut");
+                } else {
+                    $.ajax({
+                        type: "POST",
+                        url: "/Service/Member/GetMembershipTypes",
+                        data: {
+                            WorkoutId: $("#WorkoutId").val(),
+                            InstallmentId: $("#InstallmentId").val()
+
+                        },
+                        dataType: "json",
+                        success: function(data, textStatus, xhr) {
+                            $("#MembershipTypeId").empty();
+                            $('#TaxId').val("");
+                            $("#TaxId").attr('disabled', true);
+                            $.each(data,
+                                function(i) {
+                                    var optionhtml = '<option value="' + data[i].Value + '">' + data[i].Text + '</option>';
+                                    $("#MembershipTypeId").append(optionhtml);
+                                });
+                        },
+                        error: function(xhr, status, err) {
+                            if (xhr.status == 401) {
+                                alert('Error');
+                                window.location.href = "/Portal/Logout";
+                            }
+
+                            if (xhr.status == 500) {
+                                alert('Error');
+                                window.location.href = "/Portal/Logout";
+                            }
+                        }
+                    });
+                }
+
+
+            });
+
+
+            $("#TaxId").change(function() {
+
+                if ($("#InstallmentId").val() == '') {
+                    $.alert("Select Installment");
+                } else if ($("#WorkoutId").val() == '') {
+                    $.alert("Select WorkOut");
+                } else if ($("#TaxId").val() == '') {
+                    $.alert("Select Tax Type");
+                } else {
+                    $.ajax({
+                        type: "POST",
+                        url: "/Service/Member/CalculateAmount",
+                        data: {
+                            Membershiptypeid: $("#MembershipTypeId").val(),
+                            Taxtypeid: $("#TaxId").val()
+
+                        },
+                        dataType: "json",
+                        success: function(data, textStatus, xhr) {
+                            $("#Amount").empty();
+                            $("#Taxpercentage").empty();
+                            $("#Total").empty();
+
+                            $("#Amount").val(data.Values.Amount);
+                            $("#Taxpercentage").val(data.Values.Taxpercentage);
+                            $("#Total").val(data.Values.Total);
+                        },
+                        error: function(xhr, status, err) {
+                            if (xhr.status == 401) {
+                                alert('Error');
+                                window.location.href = "/Portal/Logout";
+                            }
+
+                            if (xhr.status == 500) {
+                                alert('Error');
+                                window.location.href = "/Portal/Logout";
+                            }
+                        }
+                    });
+                }
+            });
+
+            $("#MobileNo").blur(function() {
+                if ($("#MobileNo").val() != '' && $("#MobileNo").val().length == "10") {
+                    $.ajax({
+                        type: "POST",
+                        url: "/Service/Member/CheckMobileNo",
+                        data: {
+                            MobileNo: $("#MobileNo").val()
+                        },
+                        dataType: "json",
+                        success: function(data, textStatus, xhr) {
+                            if (data.result == "Exists") {
+                                $.alert('MobileNo Already Exists!');
+                                $("#MobileNo").val('');
+                            }
+                        },
+                        error: function(xhr, status, err) {
+                            if (xhr.status == 401) {
+                                alert('Error');
+                                window.location.href = "/Portal/Logout";
+                            }
+
+                            if (xhr.status == 500) {
+                                alert('Error');
+                                window.location.href = "/Portal/Logout";
+                            }
+                        }
+                    });
+                }
+            });
+
+            $("#EmailId").blur(function() {
+                if ($("#EmailId").val() != '') {
+                    $.ajax({
+                        type: "POST",
+                        url: "/Service/Member/CheckEmailId",
+                        data: {
+                            EmailId: $("#EmailId").val()
+                        },
+                        dataType: "json",
+                        success: function(data, textStatus, xhr) {
+                            if (data.result == "Exists") {
+                                $.alert('EmailId Already Exists!');
+                                $("#EmailId").val('');
+                            }
+                        },
+                        error: function(xhr, status, err) {
+                            if (xhr.status == 401) {
+                                alert('Error');
+                                window.location.href = "/Portal/Logout";
+                            }
+
+                            if (xhr.status == 500) {
+                                alert('Error');
+                                window.location.href = "/Portal/Logout";
+                            }
+                        }
+                    });
+                }
+            });
+        });
+
+
+        if ('@Model.WorkoutId' != '' && '@Model.WorkoutId' != '0' && '@Model.InstallmentId' != '' && '@Model.InstallmentId' != '0') {
+
+            $.ajax({
+                type: "POST",
+                url: "/Service/Member/GetMembershipTypes",
+                data: {
+                    InstallmentId: '@Model.InstallmentId',
+                    WorkOutId: '@Model.WorkoutId'
+                },
+                dataType: "json",
+                success: function(data, textStatus, xhr) {
+                    $("#MembershipTypeId").empty();
+
+                    $.each(data,
+                        function(i) {
+                            var optionhtml = '<option value="' + data[i].Value + '">' + data[i].Text + '</option>';
+                            $("#MembershipTypeId").append(optionhtml);
+                        });
+
+                    if ('@Model.MembershipTypeId' != '' && '@Model.MembershipTypeId' != '0') {
+                        $("#MembershipTypeId").val('@Model.MembershipTypeId');
+                    }
+                },
+                error: function(xhr, status, err) {
+                    if (xhr.status == 401) {
+                        alert('Error');
+                        window.location.href = "/Portal/Logout";
+                    }
+
+                    if (xhr.status == 500) {
+                        alert('Error');
+                        window.location.href = "/Portal/Logout";
+                    }
+                }
+            });
+        };
+
+        $(document).ready(function () {
+            $( "#btnsubmit" ).click(function() {
+               
+                $.confirm({
+                    title: 'Confirmation Message',
+                    content: "Are you sure you want to submit?",
+                    type: 'green',
+                    typeAnimated: false,
+                    buttons:
+                    {
+                        Ok: function ()
+                        {
+                            $("#frmRegistration").submit();
+                        }
+                    }
+                });
+            });
+        });
+
+       
+    </script>
+}
+

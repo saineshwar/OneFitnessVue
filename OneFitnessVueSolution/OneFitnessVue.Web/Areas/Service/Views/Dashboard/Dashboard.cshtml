@@ -1,0 +1,238 @@
+﻿@model OneFitnessVue.ViewModel.Reporting.DashboardViewModel
+<div class="row">
+    <div class="col-lg-3 col-6">
+        <!-- small box -->
+        <div class="small-box bg-info">
+            <div class="inner">
+                <h3>@ViewBag.NewMembersCount</h3>
+
+                <p>New Members Monthly</p>
+            </div>
+            <div class="icon">
+                <i class="ion ion-bag"></i>
+            </div>
+            <a href="/Service/Member/Index" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+    <!-- ./col -->
+    <div class="col-lg-3 col-6">
+        <!-- small box -->
+        <div class="small-box bg-success">
+            <div class="inner">
+                <h3>@ViewBag.RenewedMembersCount </h3>
+
+                <p>Renewed Members Monthly</p>
+            </div>
+            <div class="icon">
+                <i class="ion ion-stats-bars"></i>
+            </div>
+            <a href="/Service/Renewal/Index" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+    <!-- ./col -->
+    <div class="col-lg-3 col-6">
+        <!-- small box -->
+        <div class="small-box bg-warning">
+            <div class="inner">
+                <h3>@ViewBag.EnquiryCount</h3>
+
+                <p>Enquiry Count</p>
+            </div>
+            <div class="icon">
+                <i class="ion ion-person-add"></i>
+            </div>
+            <a href="/Service/Enquiry/Index" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+    <!-- ./col -->
+    <div class="col-lg-3 col-6">
+        <!-- small box -->
+        <div class="small-box bg-danger">
+            <div class="inner">
+                <h3>@ViewBag.RefundMonthlyCount </h3>
+
+                <p>Refund Monthly Count</p>
+            </div>
+            <div class="icon">
+                <i class="ion ion-pie-graph"></i>
+            </div>
+            <a href="/Service/Refund/Index" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+    <!-- ./col -->
+</div>
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="d-flex justify-content-between">
+                            <h3 class="card-title">Most Sold Membership</h3>
+
+                        </div>
+                    </div>
+                    <div class="card-body">
+
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th style="width: 10px">#</th>
+                                    <th>Total</th>
+                                    <th>Membership Type</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @if (Model.ListofMembershipType != null)
+                                {
+                                    int counter = 1;
+
+                                    foreach (var list in Model.ListofMembershipType)
+                                    {
+
+
+                                        <tr>
+                                            <td>@counter</td>
+                                            <td>@list.TotalCount</td>
+                                            <td>@list.MembershipTypeName</td>
+                                        </tr>
+
+
+
+                                        counter++;
+
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- /.card -->
+                <!-- /.card -->
+            </div>
+            <!-- /.col-md-6 -->
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="d-flex justify-content-between">
+                            <h3 class="card-title">Members [New & Renewed]</h3>
+
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex">
+
+                        </div>
+                        <!-- /.d-flex -->
+
+                        <div class="position-relative mb-4">
+                            <div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                            <canvas id="sales-chart" height="200" style="display: block; width: 487px; height: 200px;" width="487" class="chartjs-render-monitor"></canvas>
+                        </div>
+
+                        <div class="d-flex flex-row justify-content-end">
+                            <span class="mr-2">
+                                <i class="fas fa-square text-primary"></i> New
+                            </span>
+
+                            <span>
+                                <i class="fas fa-square text-gray"></i> Renewed
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.card -->
+
+
+            </div>
+            <!-- /.col-md-6 -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</div>
+
+
+@section Scripts{
+    <link href="~/plugins/chart.js/Chart.css" rel="stylesheet" />
+   
+    <script src="~/plugins/chart.js/Chart.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        var ticksStyle = {
+            fontColor: '#495057',
+            fontStyle: 'bold'
+        }
+
+        var mode = 'index';
+        var intersect = true;
+
+        var $salesChart = $('#sales-chart');
+        // eslint-disable-next-line no-unused-vars
+        var salesChart = new Chart($salesChart,
+            {
+                type: 'bar',
+                data: {
+                    labels: ['APR','MAY','JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC','JAN','FEB','MAR'],
+                    datasets: @Html.Raw(ViewBag.Data)
+
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    tooltips: {
+                        mode: mode,
+                        intersect: intersect
+                    },
+                    hover: {
+                        mode: mode,
+                        intersect: intersect
+                    },
+                    legend: {
+                        display: false
+                    },
+                    scales: {
+                        yAxes: [
+                            {
+                                // display: false,
+                                gridLines: {
+                                    display: true,
+                                    lineWidth: '4px',
+                                    color: 'rgba(0, 0, 0, .2)',
+                                    zeroLineColor: 'transparent'
+                                },
+                                ticks: $.extend({
+                                    beginAtZero: true,
+
+                                    // Include a dollar sign in the ticks
+                                    callback: function (value) {
+                                        if (value >= 1000) {
+                                            value /= 1000;
+                                            value += 'k';
+                                        }
+
+                                        return  value;
+                                    }
+                                },
+                                    ticksStyle)
+                            }
+                        ],
+                        xAxes: [
+                            {
+                                display: true,
+                                gridLines: {
+                                    display: false
+                                },
+                                ticks: ticksStyle
+                            }
+                        ]
+                    }
+                }
+            });
+    });
+
+
+
+
+    </script>
+}

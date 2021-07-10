@@ -1,0 +1,120 @@
+﻿@model OneFitnessVue.ViewModel.MemberRegistration.ReceiptViewModel
+<div class="col-12">
+    
+
+
+    <!-- Main content -->
+    <div class="invoice p-3 mb-3">
+        <!-- title row -->
+        <div class="row">
+            <div class="col-12">
+                <h4>
+                    <img width="40px" src="@Model.GeneralSettings.Logopath" /> @Model.GeneralSettings.Name
+                    <small class="float-right">Date: @Model.InvoiceDate</small>
+                </h4>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- info row -->
+        <div class="row invoice-info">
+
+
+            <!-- /.col -->
+            <div class="col-sm-4 invoice-col">
+                <b>Invoice #@Model.InvoiceNo</b><br>
+                <b>MemberNo :</b> @Model.RecepitDetails.MemberNo<br>
+
+                <b>Name :</b>  @Model.RecepitDetails.FirstName @Model.RecepitDetails.MiddleName @Model.RecepitDetails.LastName <br>
+                <b>Payment Date:</b> @Model.RecepitDetails.PaymentFromdt<br>
+
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+        <!-- Table row -->
+        <div class="row">
+            <div class="col-12 table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Qty</th>
+                            <th>Membership Type</th>
+                            <th>Payment From</th>
+                            <th>Payment To</th>
+                            <th>Next Renwal Date</th>
+                            <th>Amount</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>@Model.RecepitDetails.MembershipTypeName (@Model.RecepitDetails.ApplicationType)</td>
+                            <td>@Model.RecepitDetails.PaymentFromdt</td>
+                            <td>@Model.RecepitDetails.PaymentTodt</td>
+                            <td>@Model.RecepitDetails.NextRenewalDate</td>
+                            <td>@Model.RecepitDetails.Amount</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+
+        <div class="row">
+            <!-- accepted payments column -->
+            <div class="col-6">
+
+            </div>
+            <!-- /.col -->
+            <div class="col-6">
+
+
+                <div class="table-responsive">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <th style="width:50%">Subtotal:</th>
+                                <td>@Model.RecepitDetails.Amount</td>
+                            </tr>
+                            <tr>
+                                <th>Tax (@Model.RecepitDetails.TaxPercentage%) (@Model.RecepitDetails.TaxType)</th>
+                                <td>@Model.RecepitDetails.TaxPercentageAmount</td>
+                            </tr>
+                            <tr>
+                                <th>Total:</th>
+                                <td> @Model.RecepitDetails.TotalAmount</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- /.col -->
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <h4>
+                    <small class="float-right">Received by :@Model.RecepitDetails.CreatedBy</small>
+                </h4>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+        <!-- this row will not appear when printing -->
+        <div class="row no-print">
+            <div class="col-12">
+                <a href="javascript:void(0);" onClick="window.location.reload()" rel="noopener" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Print</a>
+
+            </div>
+        </div>
+    </div>
+    <!-- /.invoice -->
+</div>
+
+<script>
+    window.addEventListener("load", window.print());
+</script>
+

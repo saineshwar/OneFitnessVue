@@ -1,0 +1,177 @@
+﻿
+@{ ViewBag.PageName = "Payment History"; }
+
+@await Html.PartialAsync("~/Views/Shared/_DatatablesCss.cshtml")
+
+
+<div class="col-md-12">
+    <div class="card card-default">
+        <div class="card-header">
+            <h3 class="card-title">All</h3>
+        </div>
+        <div class="card-body">
+            <table id="DataTableGrid" class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>PaymentID</th>
+                        <th>MemberNo</th>
+                        <th>FullName</th>
+                        <th>Membership</th>
+                        <th>Payment From</th>
+                        <th>Payment To</th>
+                        <th>Due Date</th>
+                        <th>Total Amount</th>
+
+                        <th>Payment Type</th>
+                        <th>Tax</th>
+                        <th>Type</th>
+
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+@await Html.PartialAsync("~/Views/Shared/_DatatablesScripts.cshtml")
+@Html.Hidden("item-to-delete", "", new { @id = "item-to-delete" })
+
+@section scripts{
+    <script src="~/plugins/moment/moment.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#DataTableGrid').DataTable({
+                order: [[0, 'desc']],
+                "processing": true,
+                "serverSide": true,
+                "filter": true,
+                "ajax": {
+                    "url": "/Service/PaymentHistory/ShowAllMemberRegistration",
+                    "type": "POST",
+                    "datatype": "json"
+                },
+                "columnDefs": [
+                    {
+                        "targets": [0],
+                        "visible": false,
+                        "searchable": false,
+                        "width": "1%"
+                    },
+                    {
+                        "targets": [1],
+                        "orderable": false,
+                        "searchable": false,
+                        "width": "10%"
+                    },
+                    {
+                        "targets": [2],
+                        "orderable": false,
+                        "searchable": false,
+                        "width": "20%"
+                    },
+                    {
+                        "targets": [3],
+                        "orderable": false,
+                        "searchable": false,
+                        "width": "10%"
+                    },
+                    {
+                        "targets": [4],
+                        "orderable": false,
+                        "searchable": false,
+                        "width": "10%"
+                    },
+                    {
+                        "targets": [5],
+                        "orderable": false,
+                        "searchable": false,
+                        "width": "10%"
+                    },
+                    {
+                        "targets": [6],
+                        "orderable": false,
+                        "searchable": false,
+                        "width": "10%"
+                    },
+                    {
+                        "targets": [7],
+                        "orderable": false,
+                        "searchable": false,
+                        "width": "10%"
+                    },
+                    {
+                        "targets": [8],
+                        "orderable": false,
+                        "searchable": false,
+                        "width": "5%"
+                    },
+                    {
+                        "targets": [9],
+                        "orderable": false,
+                        "searchable": false,
+                        "width": "5%"
+                    },
+                    {
+                        "targets": [10],
+                        "orderable": false,
+                        "searchable": false,
+                        "width": "5%"
+                    }
+                ],
+                "columns": [
+                    { "data": "PaymentID", "name": "PaymentID", "autoWidth": false },
+                    { "data": "MemberNo", "name": "MemberNo", "autoWidth": false },
+                    { "data": "FullName", "name": "FullName", "autoWidth": false },
+                    { "data": "MembershipType", "name": "MembershipType", "autoWidth": false },
+                    {
+                        "render": function (data, type, full, meta) {
+                            return moment(full.PaymentFromdt).format("DD/MM/YYYY");
+                        }
+                    },
+                    {
+                        "render": function (data, type, full, meta) {
+                            return moment(full.PaymentTodt).format("DD/MM/YYYY");
+                        }
+                    },
+                    {
+                        "render": function (data, type, full, meta) {
+                            return moment(full.NextRenewalDate).format("DD/MM/YYYY");
+                        }
+                    },
+
+                    
+                    { "data": "TotalAmount", "name": "TotalAmount", "autoWidth": false },
+                 
+                    { "data": "PaymentType", "name": "PaymentType", "autoWidth": false },
+                    { "data": "Tax", "name": "Tax", "autoWidth": false },
+                    {
+                        "render": function(data, type, full, meta) {
+                            if (full.ApplicationType == "New")
+                            {
+                                return '<button type="button" class="btn btn-success">New</button>';
+                            }
+                            if (full.ApplicationType == "Renewed")
+                            {
+                                return '<button type="button" class="btn btn-warning">Renewed</button>';
+                            }
+                            if (full.ApplicationType == "Refund") {
+                                return '<button type="button" class="btn btn-danger">Refund</button>';
+                            }
+                        }
+                    }
+                ]
+            });
+
+
+        });
+
+
+    </script>
+
+
+}
+
