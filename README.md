@@ -2,11 +2,9 @@
 
 # OneFitnessVue  
 
-Gym Project to Learn ASP.NET Core. 
+Gym Project to Learn ASP.NET Core. [Read the Documentation »](https://tutexchange.com/simple-gym-application-in-asp-net-core) 
 
 ⚡️	This is Sample Project Which Does not Contain All Features.
-
-️📞	For All Features Connect Me.
 
 OneFitnessVue is simple gym application which has different ends in it such as User, Admin and Superadmin. 
 OneFitnessVue this gym application with 3 roles in it. 
