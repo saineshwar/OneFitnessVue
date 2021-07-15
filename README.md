@@ -6,6 +6,8 @@ Gym Project to Learn ASP.NET Core. [Read the Documentation »](https://tutexchan
 
 ⚡️	This is Sample Project Which Does not Contain All Features.
 
+⚡️ [Buy Full Edition With Completed Database »](https://saipay.stores.instamojo.com/product/505562/onefitnessvue)
+
 OneFitnessVue is simple gym application which has different ends in it such as User, Admin and Superadmin. 
 OneFitnessVue this gym application with 3 roles in it. 
 1.	User
@@ -77,6 +79,24 @@ If you find project really helpful in Quick Learning do give it a star.
 > Default User Account
 * Username: demouser
 * Password: Pass@123
+
+## NuGet Packages which are used in Project
+* AutoMapper.Extensions.Microsoft.DependencyInjection 
+* DNTCaptcha.Core 
+* EPPlus Version
+* Microsoft.AspNetCore.Mvc.NewtonsoftJson Version
+* Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation Version
+* Microsoft.EntityFrameworkCore Version
+* Microsoft.EntityFrameworkCore.SqlServer Version
+* Microsoft.VisualStudio.Web.CodeGeneration.Design Version
+* NLog.Web.AspNetCore Version
+* Dapper Version
+* Microsoft.AspNetCore.Mvc.ViewFeatures Version
+* Microsoft.Data.SqlClient Version
+* Microsoft.EntityFrameworkCore Version
+* Microsoft.EntityFrameworkCore.Relational Version
+* System.Data.SqlClient Version
+* System.Linq.Dynamic.Core Version
 
 ## About the Author
 **Saineshwar Bageri**
