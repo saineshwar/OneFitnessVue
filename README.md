@@ -8,6 +8,9 @@ Gym Project to Learn ASP.NET Core. [Read the Documentation »](https://tutexchan
 
 🔗 [Buy Complete Application With Database »](https://saipay.stores.instamojo.com/product/505562/onefitnessvue)
 
+## Click On Image to Watch Complete Video
+[![IMAGE ALT TEXT](https://github.com/saineshwar/OneFitnessVue/blob/main/K81BPM.gif)](https://youtu.be/2yPow8HVnyc "Video Title")
+
 OneFitnessVue is simple gym application which has different ends in it such as User, Admin and Superadmin. 
 OneFitnessVue this gym application with 3 roles in it. 
 1.	User
@@ -18,7 +21,6 @@ OneFitnessVue this gym application with 3 roles in it.
 ## User
 This is a counter application where user will be filling application of new member and collect payment same way will renew membership and refund payment if user suddenly don’t want membership. User also has rights to See Renewal Report.
 
-![image](https://user-images.githubusercontent.com/8281689/125163277-105aad00-e1aa-11eb-97bf-8b03c3573e21.png)
 
 
 ## Admin
