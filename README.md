@@ -103,7 +103,7 @@ If you find project really helpful in Quick Learning do give it a star.
 ## About the Author
 **Saineshwar Bageri**
 * [Blogs](https://tutexchange.com/)  
-* [Facebook Page](https://www.facebook.com/CodewithSai)  
+* [Facebook Page](https://www.facebook.com/Tutexchange)  
 * [Facebook](https://www.facebook.com/saineshwar.bageri)  
 * [Twitter](https://twitter.com/saihacksoft)  
 * [Linkedin](https://www.linkedin.com/in/saineshwar-bageri-mvp-35200440)  
