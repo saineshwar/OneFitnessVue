@@ -2,11 +2,20 @@
 
 # OneFitnessVue  
 
-Gym Project to Learn ASP.NET Core. [Read the Documentation »](https://tutexchange.com/simple-gym-application-in-asp-net-core) 
+Gym Project to Learn ASP.NET Core. 
+
+[Read the Documentation »](https://tutexchange.com/simple-gym-application-in-asp-net-core) 
 
 ⚡️	This is Sample Project Which Does not Contain All Features.
 
 🔗 [Buy Complete Application With Database »](https://saipay.stores.instamojo.com/product/505562/onefitnessvue)
+
+## Give a Star ⭐️
+If you find project really helpful in Quick Learning do give it a star. 
+
+## Support
+**⭐️ Support If Possible  <a href="https://www.buymeacoffee.com/f8lkgf5" rel="nofollow"><img src="https://camo.githubusercontent.com/3ba8042b343d12b84b85d2e6563376af4150f9cd09e72428349c1656083c8b5a/68747470733a2f2f63646e2e6275796d6561636f666665652e636f6d2f627574746f6e732f64656661756c742d6f72616e67652e706e67" alt="Buy Me A Coffee" 
+width="200" data-canonical-src="https://cdn.buymeacoffee.com/buttons/default-orange.png" style="max-width:100%;"></a> **⭐️
 
 ## Click On Image to Watch Complete Video
 [![IMAGE ALT TEXT](https://github.com/saineshwar/OneFitnessVue/blob/main/K81BPM.gif)](https://youtu.be/2yPow8HVnyc "Video Title")
@@ -20,7 +29,6 @@ OneFitnessVue this gym application with 3 roles in it.
 
 ## User
 This is a counter application where user will be filling application of new member and collect payment same way will renew membership and refund payment if user suddenly don’t want membership. User also has rights to See Renewal Report.
-
 
 
 ## Admin
@@ -59,9 +67,6 @@ If you look at the superadmin end, superadmin has all application setting access
 Project Structure is simple to understand.
 
 ![image](https://user-images.githubusercontent.com/8281689/125163322-3ed88800-e1aa-11eb-96d7-2b612d0e314d.png)
-
-## Give a Star ⭐️
-If you find project really helpful in Quick Learning do give it a star. 
 
 ## Design Template
 * [AdminLTE](https://github.com/ColorlibHQ/AdminLTE) 
