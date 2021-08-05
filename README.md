@@ -8,9 +8,9 @@ Gym Project to Learn ASP.NET Core.
 
 ⚡️	This is Sample Project Which Does not Contain All Features.
 
-💰 [Buy Complete Application With Database For Indian Users Only ₹ 555](https://saipay.stores.instamojo.com/product/505562/onefitnessvue)
+💰 [Buy Complete Application With Database For Indian Users Only ₹ 777](https://saipay.stores.instamojo.com/product/505562/onefitnessvue)
 
-💰 [Buy Complete Application With Database From Paypal 8 $](https://www.paypal.com/paypalme/saineshwar?locale.x=en_GB)
+💰 [Buy Complete Application With Database From Paypal 10 $](https://www.paypal.com/paypalme/saineshwar?locale.x=en_GB)
 
 ## Give a Star ⭐️
 If you find project really helpful in Quick Learning do give it a star. 
